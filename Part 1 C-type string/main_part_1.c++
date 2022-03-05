@@ -74,7 +74,7 @@ void printMenu(char* origStr, bool f1, char** words, unsigned wordsCounter) {
 		"Задание 1 - C-style строка\n"
 		"================Меню================\n";
 	cout << "Ввёденная строка: ";
-	if (f1) cout << origStr << endl;
+	if (f1) puts(origStr);
 	else cout << "Не может быть получено\n";
 	cout << "Строка, обработанная по заданию: ";
 	if (f1) createAnswer(words, wordsCounter);
@@ -103,7 +103,7 @@ char** createString(unsigned* argCounter, char*& entString) {
 	unsigned entStringLen = 0;
 
 	while (tempCh != '\n') {
-		cin.get(tempCh);
+		tempCh = getchar();
 
 		if (tempCh != '\n') {
 			entString = (char*)realloc(entString, ++entStringLen * sizeof(char));
@@ -186,26 +186,18 @@ void createAnswer(char** words, unsigned wordsCounter) {
 		allWordsLen += strlen(words[i]);
 	}
 	char* answerString = (char*)malloc(allWordsLen);
-	char* comma = new char[1]{ ','};
-	char* space = new char[1]{ ' ' };
 	char* randomBulshit = new char[1]{ '\0' };
 	bool isFirstWordPrint = false;
 	for (size_t i = 1; i < wordsCounter; i++) {
 		if (isSameLetters(words[i], words[0])) {
-			cout << words[i];
-			if (i + 1 < wordsCounter && strcmp(words[i + 1], comma) != 0) {
-				cout << " ";
-			}
+			printf("%s ", words[i]);
 		}
 	}
 	cout << words[0] << " ";
 	for (size_t i = 1; i < wordsCounter; i++) {
 		if (!(isSameLetters(words[i], words[0]))) {
-			cout << words[i];
-			if (i + 1 < wordsCounter && strcmp(words[i + 1], comma) != 0) {
-				cout << " ";
-			}
+			printf("%s ", words[i]);
 		}
 	}
-	cout << endl;
+	printf("\n");
 }
